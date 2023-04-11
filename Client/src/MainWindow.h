@@ -21,12 +21,14 @@ private:
     QSharedPointer<QWebSocket> socket_ptr_ {nullptr};
     QSharedPointer<QWebSocketServer> server_ptr_ {nullptr};
 
+    QSharedPointer<QPushButton> clearbtn_ptr_ {nullptr};
     QSharedPointer<QPushButton> connectbtn_ptr_ {nullptr};
     QSharedPointer<QPushButton> executebtn_ptr_ {nullptr};
     QSharedPointer<QPushButton> interraptbtn_ptr_ {nullptr};
     QSharedPointer<QPushButton> disconnectbtn_ptr_ {nullptr};
 
 private slots:
+    void slot_clear();
     void slot_connect();
     void slot_execute();
     void slot_interrapt();

@@ -15,6 +15,11 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+void MainWindow::slot_clear()
+{
+    outtextedit_ptr_->clear();
+}
+
 void MainWindow::slot_connect()
 {
 //    const QString& host {"ws://127.0.0.1"};
@@ -111,6 +116,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     invboxlayout_ptr->addWidget(new QLabel("Arguments"));
     invboxlayout_ptr->addWidget(argslineedit_ptr_.get());
 
+    clearbtn_ptr_.reset(new QPushButton("Clear"));
+    QObject::connect(clearbtn_ptr_.get(),&QPushButton::clicked,
+                     this,&MainWindow::slot_clear);
+
     connectbtn_ptr_.reset(new QPushButton("Open"));
     QObject::connect(connectbtn_ptr_.get(),&QPushButton::clicked,
                      this,&MainWindow::slot_connect);
@@ -132,6 +141,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     btnvboxlayout_ptr->addWidget(disconnectbtn_ptr_.get());
     btnvboxlayout_ptr->addWidget(executebtn_ptr_.get());
     btnvboxlayout_ptr->addWidget(interraptbtn_ptr_.get());
+    btnvboxlayout_ptr->addWidget(clearbtn_ptr_.get());
 
     QHBoxLayout* tophboxlayout_ptr {new QHBoxLayout};
     tophboxlayout_ptr->addLayout(invboxlayout_ptr,5);
@@ -154,5 +164,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     server_ptr_.reset(new QWebSocketServer("Echo server",QWebSocketServer::NonSecureMode));
     QObject::connect(server_ptr_.get(),&QWebSocketServer::newConnection,
                      this,&MainWindow::slot_new_connection);
+
+    resize(800,600);
 
 }
