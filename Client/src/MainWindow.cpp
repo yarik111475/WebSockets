@@ -165,6 +165,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QObject::connect(server_ptr_.get(),&QWebSocketServer::newConnection,
                      this,&MainWindow::slot_new_connection);
 
-    resize(800,600);
+    resize(600,600);
 
 }
